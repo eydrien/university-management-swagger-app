@@ -114,7 +114,7 @@ inscribeRouter.get('/estudiantes-semestre', async (req: Request, res: Response):
 
     // Validar que los parámetros existen
     if (!cod_a || !grupo || !semestre) {
-        res.status(400).json({ message: 'Se requieren los parámetros query: cod_a y grupo.' });
+        res.status(400).json({ message: 'Se requieren los parámetros query: cod_a, grupo y semestre.' });
     }
 
     // Convertir los valores a número
@@ -194,8 +194,6 @@ inscribeRouter.delete('/', async (req: Request, res: Response): Promise<void> =>
         res.status(result.statusCode).json(result);
     });
 });
-
-
 
 
 export { inscribeRouter };
