@@ -70,13 +70,13 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
 - **PUT** /asignaturas/:cod_e: Actualizar una asignatura por su ID.
 - **DELETE** /asignaturas/:cod_e: Eliminar una asignatura por su ID.
 
-**Imparte**
+**IMPARTE**
 - **GET** /imparte: Obtener lista de asignaturas impartidas.
 - **POST** /imparte: Crear asigna la asignatura al profesor que la imparte.
 - **PUT** /imparte?: Actualizar una asignatura por su llave compuesta (ip_p, cod_a, grupo, semestre) .
 - **DELETE** /imparte?: Eliminar una asignatura por su llave compuesta (ip_p, cod_a, grupo, semestre) .
 
-**Incribe**
+**INSCRIBE**
 - **GET** /inscribe: Obtener lista de asignaturas y estudiantes inscritos.
 - **POST** /inscribe: Crear una inscripcion a una materia.
 - **PUT** /inscribe?: Actualiza las notas de una asignatura por su llave compuesta (cod_e, cod_a, ip_p, grupo, semestre) .
