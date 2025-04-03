@@ -7,7 +7,7 @@ Este es un proyecto para la gestión de estudiantes, asignaturas y profesores en
 ## 🔧 **Características** ✨
 
 - **Backend:** Node.js, Express y TypeScript. 🖥️
-- **Frontend:** HTML, CSS y JavaScript. 🌐
+- **Frontend:** HTML, CSS y JavaScript. 🌐 (Pendiente por actualizar)
 - **API REST:** Soporta métodos HTTP ( **GET**,  **POST**,  **PUT**, DELETE). 🔄
 - **Persistencia de Datos:** Base de datos para almacenar l **a info**rmación. 💾
 
