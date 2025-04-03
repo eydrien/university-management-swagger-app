@@ -7,7 +7,7 @@ Este es un proyecto para la gestión de estudiantes, asignaturas y profesores en
 ## 🔧 **Características** ✨
 
 - **Backend:** Node.js, Express y TypeScript. 🖥️
-- **Frontend:** HTML, CSS y JavaScript. 🌐
+- **Frontend:** HTML, CSS y JavaScript (Pendiente por actualizar).🌐 
 - **API REST:** Soporta métodos HTTP ( **GET**,  **POST**,  **PUT**, DELETE). 🔄
 - **Persistencia de Datos:** Base de datos para almacenar l **a info**rmación. 💾
 
@@ -53,23 +53,34 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
  La API está configurada para interactuar con los siguientes métodos HTTP:
 
  **PROFESORES**
-- **GET** /profesor: Obtener lista de profesores.
-- **POST** /profesor: Crear un nuevo profesor.
-- **PUT** /profesor/:cod_e: Actualizar un profesor por su ID.
-- **DELETE** /profesor/:cod_e: Eliminar un profesor por su ID.   
+- **GET** /profesores: Obtener lista de profesores.
+- **POST** /profesores: Crear un nuevo profesor.
+- **PUT** /profesores/:cod_e: Actualizar un profesor por su ID.
+- **DELETE** /profesores/:cod_e: Eliminar un profesor por su ID.   
 
 **ESTUDIANTES**
-- **GET** /estrudiante: Obtener lista de estudiantes.
-- **POST** /estrudiante: Crear un nuevo estudiante.
-- **PUT** /estrudiante/:cod_e: Actualizar un estudiante por su ID.
-- **DELETE** /estrudiante/:cod_e: Eliminar un estudiante por su ID.
+- **GET** /estrudiantes: Obtener lista de estudiantes.
+- **POST** /estrudiantes: Crear un nuevo estudiante.
+- **PUT** /estrudiantes/:cod_e: Actualizar un estudiante por su ID.
+- **DELETE** /estrudiantes/:cod_e: Eliminar un estudiante por su ID.
 
 **ASIGNATURAS**
-- **GET** /asignatura: Obtener lista de asignaturas.
-- **POST** /asignatura: Crear una nueva asignatura.
-- **PUT** /asignatura/:cod_e: Actualizar una asignatura por su ID.
-- **DELETE** /asignatura/:cod_e: Eliminar una asignatura por su ID.
+- **GET** /asignaturas: Obtener lista de asignaturas.
+- **POST** /asignaturas: Crear una nueva asignatura.
+- **PUT** /asignaturas/:cod_e: Actualizar una asignatura por su ID.
+- **DELETE** /asignaturas/:cod_e: Eliminar una asignatura por su ID.
 
+**IMPARTE**
+- **GET** /imparte: Obtener lista de asignaturas impartidas.
+- **POST** /imparte: Crear asigna la asignatura al profesor que la imparte.
+- **PUT** /imparte?: Actualizar una asignatura por su llave compuesta (ip_p, cod_a, grupo, semestre) .
+- **DELETE** /imparte?: Eliminar una asignatura por su llave compuesta (ip_p, cod_a, grupo, semestre) .
+
+**INSCRIBE**
+- **GET** /inscribe: Obtener lista de asignaturas y estudiantes inscritos.
+- **POST** /inscribe: Crear una inscripcion a una materia.
+- **PUT** /inscribe?: Actualiza las notas de una asignatura por su llave compuesta (cod_e, cod_a, ip_p, grupo, semestre) .
+- **DELETE** /imparte?: Elimina la incripcion realizada por su llave compuesta (cod_e, cod_a, ip_p, grupo, semestre).  
 ---
 
 
