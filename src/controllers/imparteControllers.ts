@@ -73,93 +73,131 @@ export const getAll = (callback: Function) => {
 
 //Get para imparte que trae todas las asignaturas del profesor
 export const getByIdP = (id_p: number, callback: Function) => {
-    const queryString = `
-    SELECT imparte.*, profesores.nom_p AS nombre_profesor, asignaturas.nom_a AS nombre_asignatura
-    FROM imparte 
-    JOIN profesores ON imparte.id_p = profesores.id_p
-    JOIN asignaturas ON imparte.cod_a =asignaturas.cod_a
-    WHERE  imparte.id_p = ? 
-`;
+    const checkQuery = `
+    SELECT COUNT(*) AS count FROM imparte
+    WHERE id_p = ?`;
 
 
-    db.query(queryString, [id_p], (err, result) => {
-        if (err) { callback(err); }
+    db.query(checkQuery, [id_p], (err, result) => {
+        if (err) {
+            return callback(err);
+        }
 
-        const rows = <RowDataPacket>result;
-        if (rows) {
-            const rows = <RowDataPacket[]>result;
-            const impartir: Imparte[] = [];
-            rows.forEach(row => {
-                const imparte: Imparte = {
-                    id_p: row.id_p,
-                    cod_a: row.cod_a,
-                    grupo: row.grupo,
-                    semestre: row.semestre,
-                    horario: row.horario
-                };
-                impartir.push(imparte);
-            });
-            // Agregamos el nombre del profesor solo en la respuesta del endpoint
-            const responseData = impartir.map((item, index) => ({
-                ...item,
-                nombre_profesor: rows[index].nombre_profesor,
-                nombre_asignatura: rows[index].nombre_asignatura
-            }));
-            callback(null, {
-                statusCode: 200,
-                message: 'Asignaturas del profesor obtenidas exitosamente',
-                data: responseData
-            });
-        } else {
-            callback(null, {
-                statusCode: 404,
-                message: 'Asignaturas no encontradas'
+        if (Array.isArray(result) && result.length > 0 && (result as any[])[0].count === 0) {
+
+            return callback(null, {
+                statusCode: 400,
+                message: 'No existe registro en imparte',
+
             });
         }
+
+        const queryString = `
+        SELECT imparte.*, profesores.nom_p AS nombre_profesor, asignaturas.nom_a AS nombre_asignatura
+        FROM imparte 
+        JOIN profesores ON imparte.id_p = profesores.id_p
+        JOIN asignaturas ON imparte.cod_a =asignaturas.cod_a
+        WHERE  imparte.id_p = ? 
+    `;
+        db.query(queryString, [id_p], (err, result) => {
+            if (err) { callback(err); }
+
+
+            const rows = <RowDataPacket>result;
+            if (rows) {
+                const rows = <RowDataPacket[]>result;
+                const impartir: Imparte[] = [];
+                rows.forEach(row => {
+                    const imparte: Imparte = {
+                        id_p: row.id_p,
+                        cod_a: row.cod_a,
+                        grupo: row.grupo,
+                        semestre: row.semestre,
+                        horario: row.horario
+                    };
+                    impartir.push(imparte);
+                });
+                // Agregamos el nombre del profesor solo en la respuesta del endpoint
+                const responseData = impartir.map((item, index) => ({
+                    ...item,
+                    nombre_profesor: rows[index].nombre_profesor,
+                    nombre_asignatura: rows[index].nombre_asignatura
+                }));
+                callback(null, {
+                    statusCode: 200,
+                    message: 'Asignaturas del profesor obtenidas exitosamente',
+                    data: responseData
+                });
+            } else {
+                callback(null, {
+                    statusCode: 404,
+                    message: 'Asignaturas no encontradas'
+                });
+            }
+        });
     });
 }
 
 ////Get para traer todos los profesores que imparten x asignatura
 export const getByCodA = (cod_a: number, callback: Function) => {
-    const queryString = `
+    const checkQuery = `
+    SELECT COUNT(*) AS count FROM inscribe 
+    WHERE cod_a= ? `;
+
+    db.query(checkQuery, [cod_a], (err, result) => {
+        if (err) {
+            return callback(err);
+        }
+
+        if (Array.isArray(result) && result.length > 0 && (result as any[])[0].count === 0) {
+
+            return callback(null, {
+                statusCode: 400,
+                message: 'No existe registro en imparte',
+
+            });
+        }
+
+        const queryString = `
     SELECT imparte.*, profesores.nom_p AS nombre_profesor, asignaturas.nom_a AS nombre_asignatura
     FROM imparte 
     JOIN profesores ON imparte.id_p = profesores.id_p
     JOIN asignaturas ON imparte.cod_a = asignaturas.cod_a
     WHERE  imparte.cod_a = ? 
 `;
-    db.query(queryString, [cod_a], (err, result) => {
-        if (err) { callback(err); }
+        db.query(queryString, [cod_a], (err, result) => {
+            if (err) { callback(err); }
 
-        const rows = <RowDataPacket[]>result;
-        if (rows) {
-            const impartir: Imparte[] = [];
-            rows.forEach(row => {
-                const imparte: Imparte = {
-                    id_p: row.id_p,
-                    cod_a: row.cod_a,
-                    grupo: row.grupo,
-                    semestre: row.semestre,
-                    horario: row.horario
-                };
-                impartir.push(imparte);
-            });
-            const responseData = impartir.map((item, index) => ({
-                ...item,
-                nombre_profesor: rows[index].nombre_profesor,
-                nombre_asignatura: rows[index].nombre_asignatura
-            }));
-            callback(null, {
-                statusCode: 200,
-                message: 'profesores obtenidas exitosamente',
-                data: responseData
-            });
-        } else {
-            callback(null, {
-                statusCode: 404,
-                message: 'Profesores no encontradas'
-            });
-        }
+            const rows = <RowDataPacket[]>result;
+            if (rows) {
+                const impartir: Imparte[] = [];
+                rows.forEach(row => {
+                    const imparte: Imparte = {
+                        id_p: row.id_p,
+                        cod_a: row.cod_a,
+                        grupo: row.grupo,
+                        semestre: row.semestre,
+                        horario: row.horario
+                    };
+                    impartir.push(imparte);
+                });
+                const responseData = impartir.map((item, index) => ({
+                    ...item,
+                    nombre_profesor: rows[index].nombre_profesor,
+                    nombre_asignatura: rows[index].nombre_asignatura
+                }));
+                callback(null, {
+                    statusCode: 200,
+                    message: 'profesores obtenidas exitosamente',
+                    data: responseData
+                });
+            } else {
+                callback(null, {
+                    statusCode: 404,
+                    message: 'Profesores no encontradas'
+                });
+            }
+        });
     });
 }
 

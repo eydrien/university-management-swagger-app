@@ -8,9 +8,11 @@ import { inscribeRouter } from './src/routes/inscribeRoutes';
 import { imparteRouter } from './src/routes/imparteRoutes';
 import { db } from './utils/db';
 import cors from 'cors';
+import { setupSwagger } from './utils/swaggerConfig'; // importar
+
+dotenv.config();
 
 const app = express();
-dotenv.config();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -18,7 +20,6 @@ app.get('/', (req, res) => {
     res.type('text/plain');
     res.status(200).send('Welcome!');
 });
-
 //rutas
 app.use('/estudiantes', estudianteRouter);
 app.use('/profesores', profesorRouter);
@@ -26,6 +27,7 @@ app.use('/asignaturas', asignaturaRouter);
 app.use('/inscribe', inscribeRouter);
 app.use('/imparte', imparteRouter);
 
+setupSwagger(app); // justo antes del app.listen
 db.connect((err) => {
     if (err) {
         console.log('Database connection error');
