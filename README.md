@@ -1,4 +1,4 @@
-# 🎓 **university-management-app** 📚
+# 🎓 **university-management-swagger-app** 📚
 
 Este proyecto es una extensión del repositorio original university-management-app, incorporando documentación interactiva de la API mediante Swagger. Proporciona una interfaz intuitiva para visualizar y probar los endpoints disponibles, facilitando el desarrollo y la integración.
 ---
